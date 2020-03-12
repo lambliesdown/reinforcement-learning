@@ -10,7 +10,7 @@ from rllib.environment.cliff_walk_environment import CliffWalkEnvironment
 from rllib.rl_glue import RLGlue
 
 import numpy as np
-from manager import Manager
+from helper.manager import Manager
 
 def run_experiment(env_info, agent_info, 
                    num_episodes=5000,
@@ -53,7 +53,7 @@ def main():
     
     agent_info.update({"policy": policy})
     
-    true_values_file = "optimal_policy_value_fn.npy"
+    true_values_file = "helper/optimal_policy_value_fn.npy"
     _ = run_experiment(env_info, agent_info, num_episodes=5000, experiment_name="Policy Evaluation on Optimal Policy",
                        plot_freq=500, true_values_file=true_values_file)
         
