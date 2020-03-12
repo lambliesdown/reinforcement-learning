@@ -1,4 +1,4 @@
 matplotlib
 numpy
 tqdm
-jupyter_contrib_nbextensions # for TOC
+jupyter_contrib_nbextensions
