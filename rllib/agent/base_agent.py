@@ -10,6 +10,10 @@ class BaseAgent(Agent):
 
     def agent_init(self, agent_info={}):
         
+        # The number of actions
+        self.num_actions = agent_info.get("num_actions", 1)
+        # The number of states
+        self.num_states = agent_info.get("num_states", 1)
         # Discount factor (gamma) to use in the updates.
         self.discount = agent_info.get("discount", 0.95)
         # The learning rate or step size parameter (alpha) to use in updates.

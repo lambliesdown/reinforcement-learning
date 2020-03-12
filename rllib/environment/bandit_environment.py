@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-from rllib.environment.base_environment import BaseEnvironment
+from .environment import Environment
 
 import numpy as np
 
-class TenArmEnvironment(BaseEnvironment):
+class BanditEnvironment(Environment):
     """Implements the environment for an RLGlue environment
 
     Note:
@@ -30,10 +30,15 @@ class TenArmEnvironment(BaseEnvironment):
             Initialize a tuple with the reward, first state observation, boolean
             indicating if it's terminal.
         """
-        
-        self.seed = env_info.get("random_seed", None)
+        try:
+            self.num_arms = env_info["num_arms"]
+        except:
+            print("Required parameter 'num_arms' missing in env_info")
+            raise
+            
+        self.seed = env_info.get("seed", None)
         np.random.seed(self.seed)
-        self.arms = np.random.randn(10)#[np.random.normal(0.0, 1.0) for _ in range(10)]
+        self.arms = np.random.randn(self.num_arms)
         local_observation = 0  # An empty NumPy array
 
         self.reward_obs_term = (0.0, local_observation, False)
@@ -59,23 +64,6 @@ class TenArmEnvironment(BaseEnvironment):
                 and boolean indicating if it's terminal.
         """
 
-        # if action == 0:
-        #     if np.random.random() < 0.2:
-        #         reward = 14
-        #     else:
-        #         reward = 6
-
-        # if action == 1:
-        #     reward = np.random.choice(range(10,14))
-        
-        # if action == 2:
-        #     if np.random.random() < 0.8:
-        #         reward = 174
-        #     else:
-        #         reward = 7
-
-        # reward = np.random.normal(self.arms[action], 1.0)
-        
         reward = self.arms[action] + np.random.randn()
 
         obs = self.reward_obs_term[1]
